@@ -8,14 +8,15 @@ public class Prova {
     private String nome;
     private int tempo_limite;
     private int pontuacao;
-    private ArrayList<Equipe> equipes;
+    //private ArrayList<Equipe> equipes;
     private ArrayList<Pontuacao> pontuacoes;
     
     public Prova (int id, int tempo, int ponto) {
         identificador = id;
         tempo_limite = tempo;
         pontuacao = ponto;
-        equipes = new ArrayList();
+    //    equipes = new ArrayList();
+        pontuacoes = new ArrayList();
     }
     
     public Prova (int id, String nomeP, int tempo, int ponto) {
@@ -25,9 +26,9 @@ public class Prova {
         pontuacao = ponto;
     }
     
-    public void setEquipes (ArrayList<Equipe> eqs) {
-        equipes = eqs;
-    }
+    //public void setEquipes (ArrayList<Equipe> eqs) {
+    //    equipes = eqs;
+    //}
     
     public int getId () {
         return identificador;
@@ -43,5 +44,18 @@ public class Prova {
     
     public int getPontuacao () {
         return pontuacao;
+    }
+    
+    public ArrayList<Pontuacao> getPontuacoes () {
+        return pontuacoes;
+    }
+    
+    public void iniciarPartida (Equipe e) {
+        //
+    }
+    
+    public void finalizarPartida (Equipe e, int tempo_prova) {
+        Pontuacao p = new Pontuacao(e, pontuacao, tempo_limite, tempo_prova);
+        pontuacoes.add(p);
     }
 }

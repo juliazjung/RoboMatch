@@ -22,4 +22,16 @@ public class Competicao {
     public void setEquipe (Equipe e) {
         equipes.add(e);
     }
+    
+    public ArrayList<Prova> getProvas () {
+        return provas;
+    }
+    
+    //public void iniciarProva (Prova p, Equipe e) {
+    //    p.iniciarPartida(e);
+    //}
+    
+    //public void finalizarProva (Prova p, Equipe e, int tempo_prova) {
+    //    p.finalizarPartida(e, tempo_prova);
+    //}
 }
