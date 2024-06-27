@@ -10,6 +10,7 @@ public class Prova {
     private int pontuacao;
     //private ArrayList<Equipe> equipes;
     private ArrayList<Pontuacao> pontuacoes;
+    private char status;
     
     public Prova (int id, int tempo, int ponto) {
         identificador = id;
