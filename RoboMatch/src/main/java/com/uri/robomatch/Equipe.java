@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 
 public class Equipe {
+    private int identificador;
     private String nome;
     private ArrayList<Participante> participantes;
     private String cidade;
@@ -20,7 +21,8 @@ public class Equipe {
         robo = roboE;
     }
     
-    public Equipe (String nomeE, String roboE, String cidadeE, String escolaE) {
+    public Equipe (int id, String nomeE, String roboE, String cidadeE, String escolaE) {
+        identificador = id;
         nome = nomeE;
         robo = roboE;
         cidade = cidadeE;

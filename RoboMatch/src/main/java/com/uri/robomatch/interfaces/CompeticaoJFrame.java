@@ -4,33 +4,27 @@
  */
 package com.uri.robomatch.interfaces;
 
-import com.uri.robomatch.Equipe;
+import com.uri.robomatch.*;
+import java.text.*;
 import java.util.*;
-import javax.swing.DefaultListModel;
+import javax.swing.*;
 
-/**
- *
- * @author julia
- */
 public class CompeticaoJFrame extends javax.swing.JFrame {
 
-    ArrayList<Equipe> equipes;
+    private ArrayList<Equipe> equipes;
+    private ArrayList<Prova> provas;
+    private RoboMatchJFrame roboMatch_frame;
     
-    public CompeticaoJFrame() {
+    public CompeticaoJFrame(RoboMatchJFrame roboMatchf) {
         initComponents();
+        this.setLocationRelativeTo(null);
         
-        Equipe equipe = new Equipe("teste");
+        roboMatch_frame = roboMatchf;
+        
         equipes = new ArrayList<Equipe>();
-        equipes.add(equipe);
-        
-        DefaultListModel<String> listModel = new DefaultListModel<>();
-        String[] nomes = new String[equipes.size()];
-        nomes = getEquipes();
-        for(int i=0; i<nomes.length; i++) {
-            listModel.addElement(nomes[i]);
-        }
-        
-        equipes_list.setModel(listModel);
+        provas = new ArrayList<Prova>();
+        carregarEquipes();
+        carregarProvas();
     }
 
     /**
@@ -58,8 +52,9 @@ public class CompeticaoJFrame extends javax.swing.JFrame {
         provas_panel = new javax.swing.JPanel();
         provas_label = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
+        provas_list = new javax.swing.JList<>();
         inserir_prova_button = new javax.swing.JButton();
+        save_button = new javax.swing.JButton();
 
         jScrollPane1.setViewportView(jEditorPane1);
 
@@ -93,6 +88,11 @@ public class CompeticaoJFrame extends javax.swing.JFrame {
         );
 
         data_text.setText("  /  /  ");
+        data_text.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                data_textFocusLost(evt);
+            }
+        });
 
         data_label.setText("Data de início");
 
@@ -123,6 +123,11 @@ public class CompeticaoJFrame extends javax.swing.JFrame {
         equipes_label.setText("Equipes");
 
         inserir_equipe_button.setText("+");
+        inserir_equipe_button.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                inserir_equipe_buttonMouseClicked(evt);
+            }
+        });
         inserir_equipe_button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 inserir_equipe_buttonActionPerformed(evt);
@@ -159,14 +164,14 @@ public class CompeticaoJFrame extends javax.swing.JFrame {
 
         provas_label.setText("Provas");
 
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane3.setViewportView(jList1);
+        jScrollPane3.setViewportView(provas_list);
 
         inserir_prova_button.setText("+");
+        inserir_prova_button.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                inserir_prova_buttonMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout provas_panelLayout = new javax.swing.GroupLayout(provas_panel);
         provas_panel.setLayout(provas_panelLayout);
@@ -191,24 +196,37 @@ public class CompeticaoJFrame extends javax.swing.JFrame {
                     .addComponent(inserir_prova_button))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
+
+        save_button.setText("Salvar");
+        save_button.setToolTipText("");
+        save_button.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                save_buttonMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(14, 14, 14)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(equipes_panel, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(provas_panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(14, 14, 14)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(equipes_panel, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(provas_panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(nome_panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(data_panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(nome_panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(data_panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(157, 157, 157)
+                        .addComponent(save_button)))
                 .addContainerGap(17, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -218,11 +236,13 @@ public class CompeticaoJFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(nome_panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(data_panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(32, 32, 32)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(equipes_panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(provas_panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(equipes_panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(provas_panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(save_button)
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         pack();
@@ -231,8 +251,106 @@ public class CompeticaoJFrame extends javax.swing.JFrame {
     private void inserir_equipe_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inserir_equipe_buttonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_inserir_equipe_buttonActionPerformed
+
+    private void inserir_equipe_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_inserir_equipe_buttonMouseClicked
+        EquipeJFrame equipe_frame = new EquipeJFrame(this);
+        equipe_frame.setVisible(true);
+    }//GEN-LAST:event_inserir_equipe_buttonMouseClicked
+
+    private void inserir_prova_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_inserir_prova_buttonMouseClicked
+        ProvaJFrame prova_frame = new ProvaJFrame(this);
+        prova_frame.setVisible(true);
+    }//GEN-LAST:event_inserir_prova_buttonMouseClicked
+
+    private void save_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_save_buttonMouseClicked
+        Date data = converterData();
+        
+        Competicao competicao = new Competicao(nome_text.getText(), data);
+        roboMatch_frame.setCompeticao(competicao);
+        roboMatch_frame.carregarCompeticoes();
+        this.setVisible(false);
+    }//GEN-LAST:event_save_buttonMouseClicked
+
+    private void data_textFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_data_textFocusLost
+        if (data_text.getText().indexOf("/") < 0 && data_text.getText().isEmpty() == false)
+          data_text.setText(data_text.getText().substring(0, 2) + "/" 
+                  + data_text.getText().substring(2, 4) + "/" + data_text.getText().substring(4));
+        
+        if (data_text.getText().length() < 8 || data_text.getText().length() > 10 
+                || data_text.getText().length() == 7 || data_text.getText().length() == 9)
+            data_text.setText("");
+        
+        if (data_text.getText().isEmpty() == false && data_text.getText().length() == 8)
+               data_text.setText(data_text.getText().substring(0, 6) + "20" + data_text.getText().substring(6));
+    }//GEN-LAST:event_data_textFocusLost
     
-    public String[] getEquipes() {
+    public Date converterData() {
+        Date data = new Date();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        
+        String data_t = data_text.getText().trim();
+        
+        if (data_t.indexOf("/") < 0 && data_t.isEmpty() == false)
+          data_t = data_t.substring(0, 2) + "/" + data_t.substring(2, 4) + "/" + data_t.substring(4);
+        
+        if (data_t.length() < 8 || data_t.length() > 10 || data_t.length() == 7 || data_t.length() == 9)
+            data_t = "";
+        
+        if (data_t.isEmpty() == false) {
+            if (data_t.length() == 8)
+                data_t = data_t.substring(0, 6) + "20" + data_t.substring(6);
+            
+            try {
+                System.out.println("Data4: " + data_t);
+                data = dateFormat.parse(data_t);
+            } catch (ParseException e) {
+                JOptionPane.showMessageDialog(null, "Formato de data inválido. Por favor, insira a data no formato dd/MM/yyyy.");
+                e.printStackTrace();
+            }
+        }
+        
+        return data;
+    }
+    
+    public void setEquipe(Equipe e) {
+        equipes.add(e);
+    }
+    
+    public void setProva (Prova p) {
+        provas.add(p);
+    }
+    
+    public int sizeEquipe () {
+        return equipes.size();
+    }
+    
+    public int sizeProva () {
+        return provas.size();
+    }
+    
+    public void carregarEquipes () {
+        DefaultListModel<String> listModel = new DefaultListModel<>();
+        String[] nomes = new String[equipes.size()];
+        nomes = getEquipesNome();
+        for(int i=0; i<nomes.length; i++) {
+            listModel.addElement(nomes[i]);
+        }
+        
+        equipes_list.setModel(listModel);
+    }
+    
+    public void carregarProvas () {
+        DefaultListModel<String> listModel = new DefaultListModel<>();
+        String[] nomes = new String[provas.size()];
+        nomes = getProvasNome();
+        for(int i=0; i<nomes.length; i++) {
+            listModel.addElement(nomes[i]);
+        }
+        
+        provas_list.setModel(listModel);
+    }
+    
+    public String[] getEquipesNome() {
         String equipes_nome[] = new String[equipes.size()];
         
         for (int i=0; i<equipes.size(); i++) {
@@ -241,6 +359,17 @@ public class CompeticaoJFrame extends javax.swing.JFrame {
         }
         
         return equipes_nome;
+    }
+    
+    public String[] getProvasNome() {
+        String provas_nome[] = new String[provas.size()];
+        
+        for (int i=0; i<provas.size(); i++) {
+            Prova prova = provas.get(i);
+            provas_nome[i] = prova.getNome();
+        }
+        
+        return provas_nome;
     }
     
     /**
@@ -273,7 +402,9 @@ public class CompeticaoJFrame extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CompeticaoJFrame().setVisible(true);
+                CompeticaoJFrame competicao_frame;
+                competicao_frame = new CompeticaoJFrame(new RoboMatchJFrame());
+                competicao_frame.setVisible(true);
             }
         });
     }
@@ -288,7 +419,6 @@ public class CompeticaoJFrame extends javax.swing.JFrame {
     private javax.swing.JButton inserir_equipe_button;
     private javax.swing.JButton inserir_prova_button;
     private javax.swing.JEditorPane jEditorPane1;
-    private javax.swing.JList<String> jList1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
@@ -296,6 +426,8 @@ public class CompeticaoJFrame extends javax.swing.JFrame {
     private javax.swing.JPanel nome_panel;
     private javax.swing.JTextField nome_text;
     private javax.swing.JLabel provas_label;
+    private javax.swing.JList<String> provas_list;
     private javax.swing.JPanel provas_panel;
+    private javax.swing.JButton save_button;
     // End of variables declaration//GEN-END:variables
 }

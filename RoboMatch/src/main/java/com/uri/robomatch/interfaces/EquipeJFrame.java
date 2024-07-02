@@ -4,17 +4,24 @@
  */
 package com.uri.robomatch.interfaces;
 
-/**
- *
- * @author julia
- */
-public class EquipeJFrame extends javax.swing.JFrame {
+import com.uri.robomatch.*;
+import java.util.ArrayList;
+import javax.swing.DefaultListModel;
 
-    /**
-     * Creates new form EquipeJFrame
-     */
-    public EquipeJFrame() {
+
+public class EquipeJFrame extends javax.swing.JFrame {
+    
+    private CompeticaoJFrame competicao_frame;
+    private ArrayList<Participante> integrantes;
+    
+    public EquipeJFrame(CompeticaoJFrame comp_frame) {
         initComponents();
+        this.setLocationRelativeTo(null);
+        
+        competicao_frame = comp_frame;
+        
+        integrantes = new ArrayList<Participante>();
+        carregarIntegrantes();
     }
 
     /**
@@ -26,57 +33,283 @@ public class EquipeJFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        save_button = new javax.swing.JButton();
+        robo_panel = new javax.swing.JPanel();
+        robo_text = new javax.swing.JTextField();
+        robo_label = new javax.swing.JLabel();
+        cidade_panel = new javax.swing.JPanel();
+        cidade_text = new javax.swing.JTextField();
+        cidade_label = new javax.swing.JLabel();
+        nome_panel = new javax.swing.JPanel();
+        nome_text = new javax.swing.JTextField();
+        nome_label = new javax.swing.JLabel();
+        escola_panel = new javax.swing.JPanel();
+        escola_text = new javax.swing.JTextField();
+        escola_label = new javax.swing.JLabel();
+        integrantes_panel = new javax.swing.JPanel();
+        integrantes_label = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        integrantes_list = new javax.swing.JList<>();
+        integrantes_button = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        save_button.setText("Salvar");
+        save_button.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                save_buttonMouseClicked(evt);
+            }
+        });
+
+        robo_label.setText("Robô");
+
+        javax.swing.GroupLayout robo_panelLayout = new javax.swing.GroupLayout(robo_panel);
+        robo_panel.setLayout(robo_panelLayout);
+        robo_panelLayout.setHorizontalGroup(
+            robo_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(robo_panelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(robo_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(robo_text, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(robo_label, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 8, Short.MAX_VALUE))
+        );
+        robo_panelLayout.setVerticalGroup(
+            robo_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, robo_panelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(robo_label)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(robo_text, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        cidade_label.setText("Cidade");
+
+        javax.swing.GroupLayout cidade_panelLayout = new javax.swing.GroupLayout(cidade_panel);
+        cidade_panel.setLayout(cidade_panelLayout);
+        cidade_panelLayout.setHorizontalGroup(
+            cidade_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(cidade_panelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(cidade_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(cidade_panelLayout.createSequentialGroup()
+                        .addComponent(cidade_label, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(cidade_panelLayout.createSequentialGroup()
+                        .addComponent(cidade_text)
+                        .addContainerGap())))
+        );
+        cidade_panelLayout.setVerticalGroup(
+            cidade_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, cidade_panelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(cidade_label)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cidade_text, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        nome_text.setText("Equipe");
+
+        nome_label.setText("Nome da equipe");
+
+        javax.swing.GroupLayout nome_panelLayout = new javax.swing.GroupLayout(nome_panel);
+        nome_panel.setLayout(nome_panelLayout);
+        nome_panelLayout.setHorizontalGroup(
+            nome_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(nome_panelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(nome_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(nome_panelLayout.createSequentialGroup()
+                        .addComponent(nome_label, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(nome_panelLayout.createSequentialGroup()
+                        .addComponent(nome_text)
+                        .addContainerGap())))
+        );
+        nome_panelLayout.setVerticalGroup(
+            nome_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, nome_panelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(nome_label)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(nome_text, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        escola_label.setText("Escola");
+
+        javax.swing.GroupLayout escola_panelLayout = new javax.swing.GroupLayout(escola_panel);
+        escola_panel.setLayout(escola_panelLayout);
+        escola_panelLayout.setHorizontalGroup(
+            escola_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(escola_panelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(escola_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(escola_panelLayout.createSequentialGroup()
+                        .addComponent(escola_label, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 65, Short.MAX_VALUE))
+                    .addGroup(escola_panelLayout.createSequentialGroup()
+                        .addComponent(escola_text)
+                        .addContainerGap())))
+        );
+        escola_panelLayout.setVerticalGroup(
+            escola_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, escola_panelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(escola_label)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(escola_text, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        integrantes_label.setText("Integrantes");
+
+        jScrollPane3.setViewportView(integrantes_list);
+
+        integrantes_button.setText("+");
+        integrantes_button.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                integrantes_buttonMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout integrantes_panelLayout = new javax.swing.GroupLayout(integrantes_panel);
+        integrantes_panel.setLayout(integrantes_panelLayout);
+        integrantes_panelLayout.setHorizontalGroup(
+            integrantes_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(integrantes_panelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(integrantes_label)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(integrantes_button)
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, integrantes_panelLayout.createSequentialGroup()
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        integrantes_panelLayout.setVerticalGroup(
+            integrantes_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(integrantes_panelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(integrantes_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(integrantes_label)
+                    .addComponent(integrantes_button))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(integrantes_panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
+                        .addComponent(save_button)
+                        .addGap(38, 38, 38))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(nome_panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(robo_panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addComponent(cidade_panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(escola_panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(30, 30, 30))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(robo_panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(nome_panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cidade_panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(escola_panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(integrantes_panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(save_button)
+                        .addGap(36, 36, 36)))
+                .addGap(21, 21, 21))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(EquipeJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(EquipeJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(EquipeJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(EquipeJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    private void save_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_save_buttonMouseClicked
+        int id = competicao_frame.sizeEquipe() + 1;
+        String nome_equipe = nome_text.getText();
+        
+        Equipe equipe = new Equipe(id, nome_equipe, robo_text.getText().trim(), 
+                cidade_text.getText().trim(), escola_text.getText().trim());
+        
+        competicao_frame.setEquipe(equipe);
+        competicao_frame.carregarEquipes();
+        this.setVisible(false);
+    }//GEN-LAST:event_save_buttonMouseClicked
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new EquipeJFrame().setVisible(true);
-            }
-        });
+    private void integrantes_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_integrantes_buttonMouseClicked
+        ParticipanteJFrame participante_frame = new ParticipanteJFrame(this);
+        participante_frame.setVisible(true);
+    }//GEN-LAST:event_integrantes_buttonMouseClicked
+    
+    public void setParticipante(Participante p) {
+        integrantes.add(p);
     }
-
+    
+    public void carregarIntegrantes() {
+        DefaultListModel<String> listModel = new DefaultListModel<>();
+        String[] nomes = new String[integrantes.size()];
+        nomes = getNomeIntegrantes();
+        for(int i=0; i<nomes.length; i++) {
+            listModel.addElement(nomes[i]);
+        }
+        
+        integrantes_list.setModel(listModel);
+    }
+    
+    public String[] getNomeIntegrantes () {
+        String integrantes_nome[] = new String[integrantes.size()];
+        
+        for (int i=0; i<integrantes.size(); i++) {
+            Participante participante = integrantes.get(i);
+            integrantes_nome[i] = participante.getNome();
+        }
+        
+        return integrantes_nome;
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel cidade_label;
+    private javax.swing.JPanel cidade_panel;
+    private javax.swing.JTextField cidade_text;
+    private javax.swing.JLabel escola_label;
+    private javax.swing.JPanel escola_panel;
+    private javax.swing.JTextField escola_text;
+    private javax.swing.JButton integrantes_button;
+    private javax.swing.JLabel integrantes_label;
+    private javax.swing.JList<String> integrantes_list;
+    private javax.swing.JPanel integrantes_panel;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JLabel nome_label;
+    private javax.swing.JPanel nome_panel;
+    private javax.swing.JTextField nome_text;
+    private javax.swing.JLabel robo_label;
+    private javax.swing.JPanel robo_panel;
+    private javax.swing.JTextField robo_text;
+    private javax.swing.JButton save_button;
     // End of variables declaration//GEN-END:variables
 }

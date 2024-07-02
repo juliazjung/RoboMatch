@@ -8,9 +8,8 @@ public class Prova {
     private String nome;
     private int tempo_limite;
     private int pontuacao;
-    //private ArrayList<Equipe> equipes;
+    private String status;
     private ArrayList<Pontuacao> pontuacoes;
-    private char status;
     
     public Prova (int id, int tempo, int ponto) {
         identificador = id;
@@ -25,11 +24,8 @@ public class Prova {
         nome = nomeP;
         tempo_limite = tempo;
         pontuacao = ponto;
+        status = "Aberto";
     }
-    
-    //public void setEquipes (ArrayList<Equipe> eqs) {
-    //    equipes = eqs;
-    //}
     
     public int getId () {
         return identificador;

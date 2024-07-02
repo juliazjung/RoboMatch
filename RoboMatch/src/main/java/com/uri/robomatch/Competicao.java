@@ -6,13 +6,15 @@ import java.util.Date;
 
 public class Competicao {
     private String nome;
+    private Date data;
+    private String status;
     private ArrayList<Prova> provas;
     private ArrayList<Equipe> equipes;
-    private Date data;
     
     public Competicao (String n, Date d) {
         nome = n;
         data = d;
+        status = "Aberto";
     }
     
     public void setProva (Prova p) {
@@ -25,6 +27,10 @@ public class Competicao {
     
     public ArrayList<Prova> getProvas () {
         return provas;
+    }
+    
+    public String getNome() {
+        return nome;
     }
     
     //public void iniciarProva (Prova p, Equipe e) {
