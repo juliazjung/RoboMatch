@@ -256,6 +256,10 @@ public class EquipeJFrame extends javax.swing.JFrame {
         Equipe equipe = new Equipe(id, nome_equipe, robo_text.getText().trim(), 
                 cidade_text.getText().trim(), escola_text.getText().trim());
         
+        for (Participante p : integrantes) {
+            equipe.setParticipante(p);
+        }
+        
         competicao_frame.setEquipe(equipe);
         competicao_frame.carregarEquipes();
         this.setVisible(false);

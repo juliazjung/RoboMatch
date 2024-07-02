@@ -13,6 +13,7 @@ public class CompeticaoJFrame extends javax.swing.JFrame {
 
     private ArrayList<Equipe> equipes;
     private ArrayList<Prova> provas;
+    private ArrayList<Penalidade> penalidades;
     private RoboMatchJFrame roboMatch_frame;
     
     public CompeticaoJFrame(RoboMatchJFrame roboMatchf) {
@@ -23,8 +24,10 @@ public class CompeticaoJFrame extends javax.swing.JFrame {
         
         equipes = new ArrayList<Equipe>();
         provas = new ArrayList<Prova>();
+        penalidades = new ArrayList<Penalidade>();
         carregarEquipes();
         carregarProvas();
+        carregarPenalidades();
     }
 
     /**
@@ -55,6 +58,17 @@ public class CompeticaoJFrame extends javax.swing.JFrame {
         provas_list = new javax.swing.JList<>();
         inserir_prova_button = new javax.swing.JButton();
         save_button = new javax.swing.JButton();
+        penalidade_panel = new javax.swing.JPanel();
+        penalidade_label = new javax.swing.JLabel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        penalidades_list = new javax.swing.JList<>();
+        penalidade_button = new javax.swing.JButton();
+        penal_panel = new javax.swing.JPanel();
+        penal_tempo = new javax.swing.JTextField();
+        penal_label = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        penal_nome = new javax.swing.JTextField();
 
         jScrollPane1.setViewportView(jEditorPane1);
 
@@ -102,11 +116,10 @@ public class CompeticaoJFrame extends javax.swing.JFrame {
             data_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(data_panelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(data_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(data_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(data_label, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(data_panelLayout.createSequentialGroup()
-                        .addComponent(data_text, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 15, Short.MAX_VALUE))))
+                    .addComponent(data_text, javax.swing.GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE))
+                .addGap(0, 15, Short.MAX_VALUE))
         );
         data_panelLayout.setVerticalGroup(
             data_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -207,42 +220,157 @@ public class CompeticaoJFrame extends javax.swing.JFrame {
             }
         });
 
+        penalidade_label.setText("Penalidades");
+
+        jScrollPane4.setViewportView(penalidades_list);
+
+        penalidade_button.setText("+");
+        penalidade_button.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                penalidade_buttonMouseClicked(evt);
+            }
+        });
+
+        penal_tempo.setText("00:15");
+        penal_tempo.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                penal_tempoFocusLost(evt);
+            }
+        });
+        penal_tempo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                penal_tempoActionPerformed(evt);
+            }
+        });
+
+        penal_label.setText("Tempo (-)");
+
+        javax.swing.GroupLayout penal_panelLayout = new javax.swing.GroupLayout(penal_panel);
+        penal_panel.setLayout(penal_panelLayout);
+        penal_panelLayout.setHorizontalGroup(
+            penal_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(penal_panelLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(penal_label)
+                .addGap(44, 44, 44))
+            .addGroup(penal_panelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(penal_tempo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        penal_panelLayout.setVerticalGroup(
+            penal_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, penal_panelLayout.createSequentialGroup()
+                .addComponent(penal_label)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(penal_tempo, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        jLabel1.setText("Descrição");
+
+        penal_nome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                penal_nomeActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(penal_nome, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(penal_nome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        javax.swing.GroupLayout penalidade_panelLayout = new javax.swing.GroupLayout(penalidade_panel);
+        penalidade_panel.setLayout(penalidade_panelLayout);
+        penalidade_panelLayout.setHorizontalGroup(
+            penalidade_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(penalidade_panelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(penalidade_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(penalidade_panelLayout.createSequentialGroup()
+                        .addGroup(penalidade_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                        .addGroup(penalidade_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(penalidade_panelLayout.createSequentialGroup()
+                                .addGap(62, 62, 62)
+                                .addComponent(penalidade_button))
+                            .addGroup(penalidade_panelLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(penal_panel, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))))
+                    .addComponent(penalidade_label))
+                .addContainerGap(17, Short.MAX_VALUE))
+        );
+        penalidade_panelLayout.setVerticalGroup(
+            penalidade_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(penalidade_panelLayout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addComponent(penalidade_label, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(penalidade_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(penal_panel, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                .addGroup(penalidade_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(penalidade_button))
+                .addContainerGap(18, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(14, 14, 14)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(14, 14, 14)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(equipes_panel, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(provas_panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(nome_panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(data_panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(157, 157, 157)
-                        .addComponent(save_button)))
-                .addContainerGap(17, Short.MAX_VALUE))
+                        .addComponent(nome_panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(data_panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(save_button)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(equipes_panel, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(provas_panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(14, 14, 14)
+                .addComponent(penalidade_panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(nome_panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(data_panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(equipes_panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(provas_panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(nome_panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(data_panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(provas_panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(equipes_panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(penalidade_panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(save_button)
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
         pack();
@@ -266,6 +394,19 @@ public class CompeticaoJFrame extends javax.swing.JFrame {
         Date data = converterData();
         
         Competicao competicao = new Competicao(nome_text.getText(), data);
+        
+        for (Equipe equipe : equipes) {
+            competicao.setEquipe(equipe);
+        }
+        
+        for (Prova prova : provas) {
+            competicao.setProva(prova);
+        }
+        
+        for (Penalidade penalidade : penalidades) {
+            competicao.setPenalidade(penalidade);
+        }
+        
         roboMatch_frame.setCompeticao(competicao);
         roboMatch_frame.carregarCompeticoes();
         this.setVisible(false);
@@ -283,6 +424,72 @@ public class CompeticaoJFrame extends javax.swing.JFrame {
         if (data_text.getText().isEmpty() == false && data_text.getText().length() == 8)
                data_text.setText(data_text.getText().substring(0, 6) + "20" + data_text.getText().substring(6));
     }//GEN-LAST:event_data_textFocusLost
+
+    private void penalidade_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_penalidade_buttonMouseClicked
+        int tempo = converterTempo();
+        
+        Penalidade penalidade = new Penalidade(penal_nome.getText().trim(), tempo);
+        System.out.println(penal_nome.getText().trim());
+        System.out.println(tempo);
+        
+        penalidades.add(penalidade);
+        carregarPenalidades();
+    }//GEN-LAST:event_penalidade_buttonMouseClicked
+    
+    private int converterTempo() {
+        String tempo_string = penal_tempo.getText().trim();
+        System.out.println(tempo_string);
+        
+        if (tempo_string.indexOf(":") < 0)
+            tempo_string = tempo_string.substring(0, 2) + ":" + tempo_string.substring(2);
+        System.out.println(tempo_string);
+        
+        int tempo_seg = Integer.parseInt(tempo_string.substring(3, 5));
+        int tempo_min = Integer.parseInt(tempo_string.substring(0, 2));
+        
+        tempo_seg += (tempo_min * 60);
+        
+        return tempo_seg;
+    }   
+    
+    private void carregarPenalidades() {
+        DefaultListModel<String> listModel = new DefaultListModel<>();
+        String[] nomes = new String[penalidades.size()];
+        nomes = getNomePenalidade();
+        for(int i=0; i<nomes.length; i++) {
+            listModel.addElement(nomes[i]);
+        }
+        
+        penalidades_list.setModel(listModel);
+    }
+    
+    private String[] getNomePenalidade () {
+        String penalidades_nome[] = new String[penalidades.size()];
+        
+        for (int i=0; i<penalidades.size(); i++) {
+            Penalidade penalidade = penalidades.get(i);
+            penalidades_nome[i] = penalidade.getNome();
+        }
+        
+        return penalidades_nome;
+    }
+    
+    private void penal_tempoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_penal_tempoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_penal_tempoActionPerformed
+
+    private void penal_nomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_penal_nomeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_penal_nomeActionPerformed
+
+    private void penal_tempoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_penal_tempoFocusLost
+        if (penal_tempo.getText().indexOf(":") < 0)
+            penal_tempo.setText(penal_tempo.getText().substring(0, 2) + ":" + penal_tempo.getText().substring(2));
+        
+        if (penal_tempo.getText().length() > 5) {
+            penal_tempo.setText("00:15");
+        }
+    }//GEN-LAST:event_penal_tempoFocusLost
     
     public Date converterData() {
         Date data = new Date();
@@ -372,43 +579,6 @@ public class CompeticaoJFrame extends javax.swing.JFrame {
         return provas_nome;
     }
     
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CompeticaoJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CompeticaoJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CompeticaoJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CompeticaoJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                CompeticaoJFrame competicao_frame;
-                competicao_frame = new CompeticaoJFrame(new RoboMatchJFrame());
-                competicao_frame.setVisible(true);
-            }
-        });
-    }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel data_label;
     private javax.swing.JPanel data_panel;
@@ -419,12 +589,23 @@ public class CompeticaoJFrame extends javax.swing.JFrame {
     private javax.swing.JButton inserir_equipe_button;
     private javax.swing.JButton inserir_prova_button;
     private javax.swing.JEditorPane jEditorPane1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JLabel nome_label;
     private javax.swing.JPanel nome_panel;
     private javax.swing.JTextField nome_text;
+    private javax.swing.JLabel penal_label;
+    private javax.swing.JTextField penal_nome;
+    private javax.swing.JPanel penal_panel;
+    private javax.swing.JTextField penal_tempo;
+    private javax.swing.JButton penalidade_button;
+    private javax.swing.JLabel penalidade_label;
+    private javax.swing.JPanel penalidade_panel;
+    private javax.swing.JList<String> penalidades_list;
     private javax.swing.JLabel provas_label;
     private javax.swing.JList<String> provas_list;
     private javax.swing.JPanel provas_panel;

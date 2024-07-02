@@ -10,4 +10,8 @@ public class Penalidade {
         descricao = descr;
         tempo_penalidade = tempo;
     }
+    
+    public String getNome() {
+        return descricao;
+    }
 }

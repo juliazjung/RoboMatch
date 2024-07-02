@@ -27,6 +27,10 @@ public class Prova {
         status = "Aberto";
     }
     
+    public void setStatus (String s) {
+        status = s;
+    }
+    
     public int getId () {
         return identificador;
     }

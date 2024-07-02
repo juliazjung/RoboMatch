@@ -180,7 +180,7 @@ public class ProvaJFrame extends javax.swing.JFrame {
         int ponto = Integer.parseInt(pontos_text.getText().trim());
         int tempo = converterTempo();
         
-        Prova prova = new Prova(id, tempo, ponto);
+        Prova prova = new Prova(id, nome_text.getText().trim(), tempo, ponto);
         
         competicao_frame.setProva(prova);
         competicao_frame.carregarProvas();

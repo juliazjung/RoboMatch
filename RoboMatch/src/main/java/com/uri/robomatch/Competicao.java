@@ -10,11 +10,16 @@ public class Competicao {
     private String status;
     private ArrayList<Prova> provas;
     private ArrayList<Equipe> equipes;
-    
+    private ArrayList<Penalidade> penalidades;
+     
     public Competicao (String n, Date d) {
         nome = n;
         data = d;
         status = "Aberto";
+        
+        provas = new ArrayList<>();
+        equipes = new ArrayList<>();
+        penalidades = new ArrayList<>();
     }
     
     public void setProva (Prova p) {
@@ -23,6 +28,10 @@ public class Competicao {
     
     public void setEquipe (Equipe e) {
         equipes.add(e);
+    }
+    
+    public void setPenalidade (Penalidade p) {
+        penalidades.add(p);
     }
     
     public ArrayList<Prova> getProvas () {
