@@ -3,8 +3,8 @@ package com.uri.robomatch;
 
 
 public class Penalidade {
-    private String descricao;
-    private int tempo_penalidade;
+    private final String descricao;
+    private final int tempo_penalidade;
     
     public Penalidade (String descr, int tempo) {
         descricao = descr;
@@ -13,5 +13,9 @@ public class Penalidade {
     
     public String getNome() {
         return descricao;
+    }
+    
+    public int getTempo () {
+        return tempo_penalidade;
     }
 }

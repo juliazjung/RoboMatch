@@ -118,7 +118,7 @@
       <SubComponents>
         <Component class="javax.swing.JTextField" name="nome_text">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Nome"/>
+            <Property name="text" type="java.lang.String" value="Competi&#xe7;&#xe3;o"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="nome_label">

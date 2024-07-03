@@ -5,8 +5,8 @@ import java.util.Date;
 
 
 public class Competicao {
-    private String nome;
-    private Date data;
+    private final String nome;
+    private final Date data;
     private String status;
     private ArrayList<Prova> provas;
     private ArrayList<Equipe> equipes;
@@ -38,15 +38,26 @@ public class Competicao {
         return provas;
     }
     
+    public ArrayList<Prova> getProvasAbertas () {
+        ArrayList<Prova> provas_abertas = new ArrayList<>();
+        
+        for (Prova prova : provas) {
+            if ("Aberto".equals(prova.getStatus()))
+                provas_abertas.add(prova);
+        }
+        
+        return provas_abertas;
+    }
+    
+    public ArrayList<Equipe> getEquipes () {
+        return equipes;
+    }
+    
+    public ArrayList<Penalidade> getPenalidades () {
+        return penalidades;
+    }
+    
     public String getNome() {
         return nome;
     }
-    
-    //public void iniciarProva (Prova p, Equipe e) {
-    //    p.iniciarPartida(e);
-    //}
-    
-    //public void finalizarProva (Prova p, Equipe e, int tempo_prova) {
-    //    p.finalizarPartida(e, tempo_prova);
-    //}
 }

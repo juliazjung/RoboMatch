@@ -74,7 +74,7 @@ public class CompeticaoJFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        nome_text.setText("Nome");
+        nome_text.setText("Competição");
 
         nome_label.setText("Nome da competição");
 

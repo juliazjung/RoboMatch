@@ -14,7 +14,8 @@ import javax.swing.DefaultListModel;
  */
 public class RoboMatchJFrame extends javax.swing.JFrame {
     private Competicao competicao;
-    private ArrayList<Competicao> competicoes = new ArrayList<Competicao>();
+    private Placar placar;
+    private ArrayList<Competicao> competicoes = new ArrayList<>();
             
     public RoboMatchJFrame() {
         initComponents();
@@ -23,7 +24,6 @@ public class RoboMatchJFrame extends javax.swing.JFrame {
         competicao_panel.setVisible(false);
         voltar_button.setVisible(false);
         iniciar_button.setVisible(false);
-        iniciar_panel.setVisible(false);
     }
 
     /**
@@ -44,11 +44,7 @@ public class RoboMatchJFrame extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         competicao_list = new javax.swing.JList<>();
         iniciar_button = new javax.swing.JButton();
-        iniciar_panel = new javax.swing.JPanel();
-        provas_panel = new javax.swing.JPanel();
-        provas_label = new javax.swing.JLabel();
-        provas_combo = new javax.swing.JComboBox<>();
-        continue_button = new javax.swing.JButton();
+        titulo_label = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(400, 300));
@@ -82,7 +78,7 @@ public class RoboMatchJFrame extends javax.swing.JFrame {
         inicio_panelLayout.setVerticalGroup(
             inicio_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, inicio_panelLayout.createSequentialGroup()
-                .addContainerGap(122, Short.MAX_VALUE)
+                .addContainerGap(106, Short.MAX_VALUE)
                 .addGroup(inicio_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(competicao_button)
                     .addComponent(padroes_button))
@@ -131,77 +127,28 @@ public class RoboMatchJFrame extends javax.swing.JFrame {
                 .addGroup(competicao_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(competicao_panelLayout.createSequentialGroup()
                         .addComponent(iniciar_button)
-                        .addGap(209, 209, 209)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(inserir_button))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 357, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, competicao_panelLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 357, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         competicao_panelLayout.setVerticalGroup(
             competicao_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(competicao_panelLayout.createSequentialGroup()
-                .addContainerGap(16, Short.MAX_VALUE)
+                .addContainerGap()
                 .addGroup(competicao_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(inserir_button)
-                    .addComponent(iniciar_button))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(14, 14, 14))
-        );
-
-        provas_label.setText("Selecionar prova para iniciar");
-
-        javax.swing.GroupLayout provas_panelLayout = new javax.swing.GroupLayout(provas_panel);
-        provas_panel.setLayout(provas_panelLayout);
-        provas_panelLayout.setHorizontalGroup(
-            provas_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(provas_panelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(provas_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(provas_panelLayout.createSequentialGroup()
-                        .addComponent(provas_label)
-                        .addGap(0, 198, Short.MAX_VALUE))
-                    .addComponent(provas_combo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-        provas_panelLayout.setVerticalGroup(
-            provas_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(provas_panelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(provas_label)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(provas_combo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        continue_button.setText("Continuar");
-        continue_button.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                continue_buttonMouseClicked(evt);
-            }
-        });
-
-        javax.swing.GroupLayout iniciar_panelLayout = new javax.swing.GroupLayout(iniciar_panel);
-        iniciar_panel.setLayout(iniciar_panelLayout);
-        iniciar_panelLayout.setHorizontalGroup(
-            iniciar_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(iniciar_panelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(provas_panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, iniciar_panelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(continue_button)
-                .addGap(16, 16, 16))
-        );
-        iniciar_panelLayout.setVerticalGroup(
-            iniciar_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(iniciar_panelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(provas_panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(iniciar_button)
+                    .addComponent(inserir_button))
                 .addGap(18, 18, 18)
-                .addComponent(continue_button)
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(50, Short.MAX_VALUE))
         );
+
+        titulo_label.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        titulo_label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        titulo_label.setText("RoboMatch");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -210,31 +157,30 @@ public class RoboMatchJFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(voltar_button))
-                    .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(inicio_panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(iniciar_panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(competicao_panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(competicao_panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(10, 10, 10)
+                        .addComponent(voltar_button)
+                        .addGap(53, 53, 53)
+                        .addComponent(titulo_label)))
+                .addContainerGap(10, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addComponent(voltar_button)
-                .addGap(18, 18, 18)
+                .addGap(17, 17, 17)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(titulo_label)
+                    .addComponent(voltar_button))
+                .addGap(40, 40, 40)
                 .addComponent(inicio_panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(competicao_panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(iniciar_panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(72, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
@@ -242,9 +188,13 @@ public class RoboMatchJFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void competicao_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_competicao_buttonMouseClicked
+        titulo_label.setText("Competições");
+        
         inicio_panel.setVisible(false);
         competicao_panel.setVisible(true);
         voltar_button.setVisible(true);
+        
+        carregarCompeticoes();
     }//GEN-LAST:event_competicao_buttonMouseClicked
 
     private void inserir_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inserir_buttonActionPerformed
@@ -253,13 +203,49 @@ public class RoboMatchJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_inserir_buttonActionPerformed
 
     private void voltar_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_voltar_buttonMouseClicked
+        titulo_label.setText("Placar de Competições");
+        
+        inicio_panel.setVisible(true);
         competicao_panel.setVisible(false);
         voltar_button.setVisible(false);
-        inicio_panel.setVisible(true);
+        iniciar_button.setVisible(false);
     }//GEN-LAST:event_voltar_buttonMouseClicked
 
     private void padroes_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_padroes_buttonMouseClicked
-        // TODO add your handling code here:
+        padroes_button.setVisible(false);
+        
+        Equipe e1, e2, e3;
+        Prova p1, p2, p3;
+        Competicao c1;
+        Penalidade pn1, pn2, pn3;
+        
+        e1 = new Equipe("Equipe ABC");
+        e2 = new Equipe("Equipe 123");
+        e3 = new Equipe("Equipe XXX");
+        
+        p1 = new Prova(1, "Prova 1", 30, 200);
+        p2 = new Prova(2, "Prova 2", 60, 200);
+        p3 = new Prova(3, "Prova 3", 90, 200);
+        
+        pn1 = new Penalidade("Penalidade 1 - 5seg", 5);
+        pn2 = new Penalidade("Penalidade 2 - 10seg", 10);
+        pn3 = new Penalidade("Penalidade 3 - 15seg", 15);
+        
+        c1 = new Competicao("Competição de Robótica - URI", new java.util.Date());
+        
+        c1.setEquipe(e1);
+        c1.setEquipe(e2);
+        c1.setEquipe(e3);
+        
+        c1.setProva(p1);
+        c1.setProva(p2);
+        c1.setProva(p3);
+        
+        c1.setPenalidade(pn1);
+        c1.setPenalidade(pn2);
+        c1.setPenalidade(pn3);
+        
+        setCompeticao(c1);
     }//GEN-LAST:event_padroes_buttonMouseClicked
 
     private void competicao_listMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_competicao_listMouseClicked
@@ -267,32 +253,14 @@ public class RoboMatchJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_competicao_listMouseClicked
 
     private void iniciar_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_iniciar_buttonMouseClicked
-        iniciar_button.setVisible(false);
-        competicao_panel.setVisible(false);
-        iniciar_panel.setVisible(true);
-        
         int index = competicao_list.getSelectedIndex();
         competicao = competicoes.get(index);
-        System.out.println("Index: " + index);
-        System.out.println("Competicao: " + competicao.getNome());
+                
+        placar = new Placar(competicao);
         
-        ArrayList<Prova> provas = new ArrayList<>();
-        provas = competicao.getProvas();
-        
-        for (Prova prova : provas) {
-            provas_combo.addItem(prova.getNome());
-        }
+        CompeticaoIniciar comp_iniciar = new CompeticaoIniciar(competicao, placar);
+        comp_iniciar.setVisible(true);
     }//GEN-LAST:event_iniciar_buttonMouseClicked
-
-    private void continue_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_continue_buttonMouseClicked
-        int index = provas_combo.getSelectedIndex();
-        
-        ArrayList<Prova> provas = new ArrayList<>();
-        provas = competicao.getProvas();
-        Prova prova = provas.get(index);
-        
-        CompeticaoIniciar comp_iniciar = new CompeticaoIniciar(competicao, prova);
-    }//GEN-LAST:event_continue_buttonMouseClicked
     
     public void setCompeticao (Competicao c) {
         competicoes.add(c);
@@ -316,23 +284,21 @@ public class RoboMatchJFrame extends javax.swing.JFrame {
     public String[] getCompeticoesNome() {
         String competicoes_nome[] = new String[competicoes.size()];
         
-        for (int i=0; i<competicoes.size(); i++) {
-            Competicao competicao = competicoes.get(i);
+        int i = 0;
+        for (Competicao competicao : competicoes) {
             competicoes_nome[i] = competicao.getNome();
+            System.out.println("Competição nome: " + competicao.getNome());
+            i += 1;
         }
         
         return competicoes_nome;
     }
-    
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
+    /*
+    public static void main(String args[]) { */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
+        
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -350,30 +316,25 @@ public class RoboMatchJFrame extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(RoboMatchJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
+        //</editor-fold> */
+        /*
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new RoboMatchJFrame().setVisible(true);
             }
         });
     }
-
+    */
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton competicao_button;
     private javax.swing.JList<String> competicao_list;
     private javax.swing.JPanel competicao_panel;
-    private javax.swing.JButton continue_button;
     private javax.swing.JButton iniciar_button;
-    private javax.swing.JPanel iniciar_panel;
     private javax.swing.JPanel inicio_panel;
     private javax.swing.JButton inserir_button;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton padroes_button;
-    private javax.swing.JComboBox<String> provas_combo;
-    private javax.swing.JLabel provas_label;
-    private javax.swing.JPanel provas_panel;
+    private javax.swing.JLabel titulo_label;
     private javax.swing.JButton voltar_button;
     // End of variables declaration//GEN-END:variables
 }

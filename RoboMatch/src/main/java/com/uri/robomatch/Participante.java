@@ -3,7 +3,7 @@ package com.uri.robomatch;
 
 
 public class Participante {
-    private String nome;
+    private final String nome;
     private String cpf;
     
     public Participante (String nomeP){

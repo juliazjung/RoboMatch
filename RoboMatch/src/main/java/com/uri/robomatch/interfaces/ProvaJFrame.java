@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package com.uri.robomatch.interfaces;
 
 import com.uri.robomatch.Prova;
@@ -51,7 +48,7 @@ public class ProvaJFrame extends javax.swing.JFrame {
             }
         });
 
-        nome_text.setText("Nome");
+        nome_text.setText("Prova");
 
         nome_label.setText("Descrição da prova");
 

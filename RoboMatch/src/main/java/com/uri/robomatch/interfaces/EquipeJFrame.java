@@ -11,7 +11,7 @@ import javax.swing.DefaultListModel;
 
 public class EquipeJFrame extends javax.swing.JFrame {
     
-    private CompeticaoJFrame competicao_frame;
+    private final CompeticaoJFrame competicao_frame;
     private ArrayList<Participante> integrantes;
     
     public EquipeJFrame(CompeticaoJFrame comp_frame) {
@@ -250,10 +250,9 @@ public class EquipeJFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void save_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_save_buttonMouseClicked
-        int id = competicao_frame.sizeEquipe() + 1;
         String nome_equipe = nome_text.getText();
         
-        Equipe equipe = new Equipe(id, nome_equipe, robo_text.getText().trim(), 
+        Equipe equipe = new Equipe(nome_equipe, robo_text.getText().trim(), 
                 cidade_text.getText().trim(), escola_text.getText().trim());
         
         for (Participante p : integrantes) {

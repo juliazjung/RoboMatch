@@ -4,19 +4,19 @@ import java.util.ArrayList;
 
 
 public class Prova {
-    private int identificador;
+    private final int identificador;
     private String nome;
-    private int tempo_limite;
-    private int pontuacao;
+    private final int tempo_limite;
+    private final double pontuacao;
     private String status;
-    private ArrayList<Pontuacao> pontuacoes;
+    private ArrayList<ProvaEquipe> partidas;
     
     public Prova (int id, int tempo, int ponto) {
         identificador = id;
         tempo_limite = tempo;
         pontuacao = ponto;
-    //    equipes = new ArrayList();
-        pontuacoes = new ArrayList();
+        status = "Aberto";
+        partidas = new ArrayList<>();
     }
     
     public Prova (int id, String nomeP, int tempo, int ponto) {
@@ -25,14 +25,7 @@ public class Prova {
         tempo_limite = tempo;
         pontuacao = ponto;
         status = "Aberto";
-    }
-    
-    public void setStatus (String s) {
-        status = s;
-    }
-    
-    public int getId () {
-        return identificador;
+        partidas = new ArrayList<>();
     }
     
     public String getNome () {
@@ -43,20 +36,33 @@ public class Prova {
         return tempo_limite;
     }
     
-    public int getPontuacao () {
+    public double getPontuacao () {
         return pontuacao;
     }
     
-    public ArrayList<Pontuacao> getPontuacoes () {
-        return pontuacoes;
+    public ArrayList getPartidas () {
+        return partidas;
     }
     
-    public void iniciarPartida (Equipe e) {
-        //
+    public String getStatus () {
+        return status;
     }
     
-    public void finalizarPartida (Equipe e, int tempo_prova) {
-        Pontuacao p = new Pontuacao(e, pontuacao, tempo_limite, tempo_prova);
-        pontuacoes.add(p);
+    public ArrayList getEquipesComPartidas() {
+        ArrayList<Equipe> equipes = new ArrayList<>();
+        
+        for (ProvaEquipe pe : partidas) {
+            equipes.add(pe.getEquipe());
+        }
+        
+        return equipes;
+    }
+    
+    public void salvarPartida (ProvaEquipe provaEquipe) {
+        partidas.add(provaEquipe);
+    }
+    
+    public void finalizarProva () {
+        status = "Encerrada";
     }
 }
